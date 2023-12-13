@@ -10,19 +10,19 @@
  * };
  */
 class Solution {
+private:
+    int mx = 0, cnt = 0;
 public:
-    TreeNode *invertTree(TreeNode *root) {
+    int maxDepth(TreeNode* root) {
         if (root == nullptr) {
-            return nullptr;
+            mx = max(mx, cnt);
+            return 0;
         }
+        cnt++;
+        maxDepth(root->left);
+        maxDepth(root->right);
+        cnt--;
 
-        TreeNode *temp = root->right;
-        root->right = root->left;
-        root->left = temp;
-
-        invertTree(root->left);
-        invertTree(root->right);
-
-        return root;
+        return mx;
     }
 };
